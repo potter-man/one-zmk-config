@@ -53,12 +53,12 @@
         };
         combo_con_layer_l {
             layers = <DEF>;
-            key-positions = <38 39 40>;
+            key-positions = <39 40 41>;
             bindings = <&mo CON>;
         };
         combo_con_layer_r {
             layers = <DEF>;
-            key-positions = <41 42 43>;
+            key-positions = <42 43 44>;
             bindings = <&mo CON>;
         };
     };
