@@ -10,7 +10,7 @@
 #define CON 4
 
 &lt {
-    quick-tap-ms = <150>;
+    quick-tap-ms = <200>;
 };
 
 &mt {
@@ -19,13 +19,41 @@
 
 / {
     behaviors {
-        hmt: homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <250>;
-            quick-tap-ms = <0>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
+        ndi: nav_tap_dance_i {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp UP>, <&kp LA(UP)>, <&kp LG(UP)>;
+        };
+        ndd: nav_tap_dance_d {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp DEL>, <&kp LA(DEL)>, <&kp LG(DEL)>;
+        };
+        ndh: nav_tap_dance_h {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp BSPC>, <&kp LA(BSPC)>, <&kp LG(BSPC)>;
+        };
+        ndj: nav_tap_dance_j {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LEFT>, <&kp LA(LEFT)>, <&kp LG(LEFT)>;
+        };
+        ndk: nav_tap_dance_k {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp DOWN>, <&kp LA(DOWN)>, <&kp LG(DOWN)>;
+        };
+        ndl: nav_tap_dance_l {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp RIGHT>, <&kp LA(RIGHT)>, <&kp LG(RIGHT)>;
         };
     };
 
@@ -49,42 +77,42 @@
         default_layer {
             bindings = <
 &kp TAB         &kp Q           &kp W           &kp E           &kp R           &kp T                   &kp Y           &kp U           &kp I           &kp O           &kp P           &kp LBKT
-&lt NAV ESC     &kp A           &hmt LCTRL S    &hmt LALT D     &hmt LCMD F     &kp G                   &kp H           &hmt RCMD J     &hmt RALT K     &hmt RCTRL L    &kp SEMI        &kp SQT
-&kp MINUS       &kp Z           &kp X           &kp C           &kp V           &kp B                   &kp N           &kp M           &kp COMMA       &kp DOT         &kp FSLH        &kp EQUAL
-                                          &lt NUM LC(LA(COMMA)) &mt LSHFT SPACE &lt NAV BSPC            &lt NAV RET     &mt RSHFT SPACE &lt SYM LC(LA(PERIOD))
+&mt LCTRL GRAVE &kp A           &kp S           &kp D           &kp F           &kp G                   &kp H           &kp J           &kp K           &kp L           &kp SEMI        &mt LALT SQT
+&mt LSHFT MINUS &kp Z           &kp X           &kp C           &kp V           &kp B                   &kp N           &kp M           &kp COMMA       &kp DOT         &kp FSLH        &mt RSHFT EQUAL
+                                                &kp LCMD        &lt NAV SPACE   &lt NUM TAB             &lt SYM ESC     &lt NAV SPACE   &kp RCMD
             >;
         };
 
         num_layer {
             bindings = <
-&none           &kp F1          &kp F2          &kp F3          &kp F4          &kp F5                  &kp F6          &kp F7          &kp F8          &kp F9          &kp F10         &none
-&none           &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                  &kp N6          &kp N7          &kp N8          &kp N9          &kp N0          &none
-&none           &kp F11         &kp F12         &none           &none           &none                   &none           &none           &none           &none           &none           &none
+&kp F1          &kp F2          &kp F3          &kp F4          &kp F5          &kp F6                  &kp F7          &kp F8          &kp F9          &kp F10         &kp F11         &kp F12
+&trans          &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                  &kp N6          &kp N7          &kp N8          &kp N9          &kp N0          &trans
+&kp MINUS       &none           &none           &none           &kp LG(LBRC)    &kp LG(LBKT)            &kp LG(RBKT)    &kp LG(RBRC)  &kp LC(LA(COMMA)) &kp LC(LA(DOT)) &kp BSLH        &kp EQUAL
                                                 &trans          &trans          &trans                  &trans          &trans          &trans
             >;
         };
 
         sym_layer {
             bindings = <
-&kp GRAVE       &kp C_BRI_DEC   &kp C_BRI_INC   &none           &kp C_AC_SEARCH &kp C_VOICE_COMMAND     &none           &kp C_PREV      &kp C_PP        &kp C_NEXT      &kp C_VOL_DN    &kp C_VOL_UP
-&kp TILDE       &kp EXCLAMATION &kp AT_SIGN     &kp HASH        &kp DOLLAR      &kp PERCENT             &kp CARET       &kp AMPERSAND   &kp ASTERISK    &kp PIPE        &none           &none
-&none           &none           &kp LT          &kp LBRC        &kp LBKT        &kp LPAR                &kp RPAR        &kp RBKT        &kp RBRC        &kp GT          &kp BSLH        &none
+&kp C_BRI_DEC   &kp C_BRI_INC   &none           &kp C_AC_SEARCH &kp C_VOICE_COMMAND  &none              &kp C_PREV      &kp C_PP        &kp C_NEXT      &kp C_MUTE      &kp C_VOL_DN    &kp C_VOL_UP
+&kp TILDE       &kp EXCLAMATION &kp AT_SIGN     &kp HASH        &kp DOLLAR      &kp PERCENT             &kp CARET       &kp AMPERSAND   &kp ASTERISK    &kp LPAR        &kp RPAR        &kp PIPE
+&kp UNDER       &none           &none           &none           &kp LBRC        &kp LBKT                &kp RBKT        &kp RBRC        &kp LT          &kp GT          &kp BSLH        &kp PLUS
                                                 &trans          &trans          &trans                  &trans          &trans          &trans
             >;
         };
 
         nav_layer {
             bindings = <
-&none           &none           &kp LA(BSPC)    &kp LG(RIGHT)   &kp PG_UP       &kp TAB                 &none           &kp LA(LEFT)    &kp UP          &kp LA(RIGHT)   &none           &none
-&none           &kp LG(LEFT)    &kp LCTRL       &hmt LALT DEL   &kp LCMD        &none                   &kp BSPC        &kp LEFT        &kp DOWN        &kp RIGHT       &none           &none
-&none           &none           &none           &none           &kp PG_DN       &none                   &none           &kp RET         &kp LG(LBKT)    &kp LG(RBKT)    &none           &none
+&kp TAB         &none           &none           &kp LG(RIGHT)   &none           &kp PG_UP               &none           &kp LA(LEFT)    &ndi            &kp LA(RIGHT)   &none           &none
+&kp LCTRL       &kp LG(LEFT)    &none           &ndd            &none           &none                   &ndh            &ndj            &ndk            &ndl            &none           &kp LALT
+&kp LSHFT       &none           &none           &none           &none           &kp PG_DN               &kp ESC         &kp RET         &kp LG(LBKT)    &kp LG(RBKT)    &none           &kp RSHFT
                                                 &trans          &trans          &trans                  &trans          &trans          &trans
             >;
         };
 
         connection_layer {
             bindings = <
-&bootloader     &out OUT_BLE    &out OUT_USB    &none           &none           &none                   &none           &none           &none           &none           &none           &bootloader
+&bootloader     &out OUT_BLE    &out OUT_USB    &studio_unlock  &none           &none                   &none           &none           &none           &none           &none           &bootloader
 &bt BT_CLR      &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4            &bt BT_SEL 4    &bt BT_SEL 3    &bt BT_SEL 2    &bt BT_SEL 1    &bt BT_SEL 0    &bt BT_CLR
 &sys_reset      &bt BT_DISC 0   &bt BT_DISC 1   &bt BT_DISC 2   &bt BT_DISC 3   &bt BT_DISC 4           &bt BT_DISC 4   &bt BT_DISC 3   &bt BT_DISC 2   &bt BT_DISC 1   &bt BT_DISC 0   &sys_reset
                                                 &none           &none           &none                   &none           &none           &none
