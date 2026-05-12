@@ -4,10 +4,9 @@
 #include <dt-bindings/zmk/outputs.h>
 
 #define DEF 0
-#define NUM 1
-#define SYM 2
-#define NAV 3
-#define CON 4
+#define NAV 1
+#define FNM 2
+#define CON 3
 
 &lt {
     quick-tap-ms = <200>;
@@ -32,6 +31,28 @@
         };
     };
 
+    macros {
+        vim_n_w: vim_n_w {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp LA(RIGHT) &kp RIGHT>;
+        };
+        vim_n_r: vim_n_r {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp LEFT>
+                , <&macro_release &kp LSHFT>
+                ;
+        };
+        vim_n_o: vim_n_o {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp LG(RIGHT) &kp RET>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -39,38 +60,28 @@
             display-name = "Default";
             bindings = <
 &kp TAB         &kp Q           &kp W           &kp E           &kp R           &kp T                   &kp Y           &kp U           &kp I           &kp O           &kp P           &kp LBKT
-&mt LCTRL GRAVE &kp A           &kp S           &kp D           &kp F           &kp G                   &kp H           &kp J           &kp K           &kp L           &kp SEMI        &mt LALT SQT
+&mt LCTRL GRAVE &kp A           &kp S           &kp D           &kp F           &kp G                   &kp H           &kp J           &kp K           &kp L           &kp SEMI        &mt RCTRL SQT
 &mt LSHFT MINUS &kp Z           &kp X           &kp C           &kp V           &kp B                   &kp N           &kp M           &kp COMMA       &kp DOT         &kp FSLH        &mt RSHFT EQUAL
-                                                &kp LCMD        &lt NAV SPACE   &lt NUM TAB             &lt SYM ESC     &mt RIGHT_SHIFT SPACE &kp RCMD
-            >;
-        };
-
-        num_layer {
-            display-name = "Num";
-            bindings = <
-&kp F1          &kp F2          &kp F3          &kp F4          &kp F5          &kp F6                  &kp F7          &kp F8          &kp F9          &kp F10         &kp F11         &kp F12
-&trans          &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                  &kp N6          &kp N7          &kp N8          &kp N9          &kp N0          &trans
-&kp MINUS       &none           &none           &none           &kp LBKT        &kp LBRC                &kp RBRC        &kp RBKT      &kp LC(LA(COMMA)) &kp LC(LA(DOT)) &kp BSLH        &kp EQUAL
-                                                &trans          &trans          &trans                  &trans          &trans          &trans
-            >;
-        };
-
-        sym_layer {
-            display-name = "Sym";
-            bindings = <
-&kp C_BRI_DEC   &kp C_BRI_INC   &none           &kp C_AC_SEARCH &kp C_VOICE_COMMAND  &none              &kp C_PREV      &kp C_PP        &kp C_NEXT      &kp C_MUTE      &kp C_VOL_DN    &kp C_VOL_UP
-&kp TILDE       &kp EXCLAMATION &kp AT_SIGN     &kp HASH        &kp DOLLAR      &kp PERCENT             &kp CARET       &kp AMPERSAND   &kp ASTERISK    &kp LPAR        &kp RPAR        &kp PIPE
-&kp UNDER       &none           &none           &none           &kp LBKT        &kp LBRC                &kp RBRC        &kp RBKT        &kp LT          &kp GT          &kp BSLH        &kp PLUS
-                                                &trans          &trans          &trans                  &trans          &trans          &trans
+                                                &mt LALT BSPC   &mt LCMD LBKT   &lt NAV SPACE           &lt FNM SPACE   &mt RCMD RBKT   &mt RALT DEL
             >;
         };
 
         nav_layer {
             display-name = "Nav";
             bindings = <
-&kp TAB         &none           &kp LA(BSPC)    &kp LG(RIGHT)   &kp PG_UP       &kp LG(UP)              &none           &kp LA(LEFT)    &kp UP          &kp LA(RIGHT)   &none           &none
-&kp LCTRL       &kp LG(LEFT)    &none           &kp DEL         &none           &none                   &kp BSPC        &kp LEFT        &kp DOWN        &kp RIGHT       &none           &kp LALT
-&kp LSHFT       &none           &none           &none           &kp PG_DN       &kp LG(DOWN)            &kp ESC         &kp RET         &kp LG(LBKT)    &kp LG(RBKT)    &none           &kp RSHFT
+&kp TAB         &none           &vim_n_w        &kp LA(RIGHT)   &vim_n_r        &kp PG_UP               &kp LG(C)       &kp LG(Z)       &kp TAB         &vim_n_o        &kp LG(V)       &kp ESC
+&kp LCTRL       &kp LG(LEFT)    &none           &kp DEL         &none           &kp PG_DN               &kp LEFT        &kp DOWN        &kp UP          &kp RIGHT       &none           &kp RCTRL
+&kp LSHFT       &none           &kp BSPC        &none           &kt LSHFT       &kp LA(LEFT)            &kp ESC         &kp RET         &none           &none           &none           &kp RSHFT
+                                                &trans          &trans          &trans                  &trans          &trans          &trans
+            >;
+        };
+
+        fnm_layer {
+            display-name = "FNM";
+            bindings = <
+&kp F1          &kp F2          &kp F3          &kp F4          &kp F5          &kp F6                  &kp F7          &kp F8          &kp F9          &kp F10         &kp F11         &kp F12
+&kp N1          &kp N2          &kp N3          &kp N4          &kp N5          &kp N6                  &kp N7          &kp N8          &kp N9          &kp N0          &kp MINUS       &kp EQUAL
+&kp C_BRI_DEC   &kp C_BRI_INC   &none           &kp C_AC_SEARCH &none           &none                   &kp C_PREV      &kp C_PP        &kp C_NEXT      &kp C_MUTE      &kp C_VOL_DN    &kp C_VOL_UP
                                                 &trans          &trans          &trans                  &trans          &trans          &trans
             >;
         };
